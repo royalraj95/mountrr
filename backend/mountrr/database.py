@@ -7,9 +7,9 @@ from __future__ import annotations
 
 import logging
 import os
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from pathlib import Path
-from typing import Any, AsyncGenerator
 
 import aiosqlite
 
@@ -137,7 +137,7 @@ async def _run_migrations() -> None:
         # Strip comment-only lines before the emptiness check — a statement like
         #   "-- Core symlink tracking\nCREATE TABLE ..." must NOT be skipped.
         for statement in sql.split(";"):
-            lines = [l for l in statement.splitlines() if not l.strip().startswith("--")]
+            lines = [line for line in statement.splitlines() if not line.strip().startswith("--")]
             stmt = "\n".join(lines).strip()
             if stmt:
                 await db.execute(stmt)

@@ -62,7 +62,7 @@ class ArrClient:
     async def aclose(self) -> None:
         await self._client.aclose()
 
-    async def __aenter__(self) -> "ArrClient":
+    async def __aenter__(self) -> ArrClient:
         return self
 
     async def __aexit__(self, *_) -> None:

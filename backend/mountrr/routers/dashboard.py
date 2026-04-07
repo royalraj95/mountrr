@@ -1,11 +1,8 @@
 from __future__ import annotations
 
-from datetime import datetime
-
 from fastapi import APIRouter
 
 from mountrr import database as db
-from mountrr.config import coerce_setting
 from mountrr.models import (
     BySourceCount,
     DashboardResponse,

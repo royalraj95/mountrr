@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import asyncio
-
 
 async def test_scan_history_empty_initially(client, e2e_setup):
     resp = await client.get("/api/scans/history")

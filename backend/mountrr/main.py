@@ -59,8 +59,8 @@ async def lifespan(app: FastAPI):
 
 async def _periodic_scan_loop() -> None:
     """Background task: run a full scan on startup, then every scan_interval_minutes."""
-    from mountrr.database import get_setting
     from mountrr.config import coerce_setting
+    from mountrr.database import get_setting
     from mountrr.scanner import run_scan
 
     # Wait briefly for startup to finish before first scan

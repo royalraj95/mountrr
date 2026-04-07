@@ -13,11 +13,10 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
-from datetime import datetime, timezone
 from typing import Literal
 
 from mountrr import database as db
-from mountrr.classifier import classify_symlink, get_mount_path_for_source
+from mountrr.classifier import classify_symlink
 from mountrr.config import coerce_setting
 from mountrr.events import bus
 from mountrr.mount_health import check_all_mounts
@@ -192,7 +191,6 @@ def _evaluate_symlink(
     Evaluate a single symlink. Returns (status, source, target_path, target_size).
     Runs in a thread.
     """
-    from mountrr.classifier import classify_symlink
 
     target_path = os.readlink(symlink_path)
     source = classify_symlink(target_path, rd_patterns, nzb_patterns)

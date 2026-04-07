@@ -1,7 +1,5 @@
 """Tests for mountrr.mount_health"""
 
-import os
-import pytest
 from mountrr.mount_health import check_mount_health_sync
 
 

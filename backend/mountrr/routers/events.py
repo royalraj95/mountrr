@@ -10,7 +10,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
@@ -41,13 +41,13 @@ async def _generate(queue: asyncio.Queue):
             try:
                 message = await asyncio.wait_for(queue.get(), timeout=PING_INTERVAL)
                 yield f"data: {message}\n\n"
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 # Send keepalive ping
                 ping = json.dumps(
                     {
                         "event": "ping",
                         "payload": {},
-                        "ts": datetime.now(timezone.utc).isoformat(),
+                        "ts": datetime.now(UTC).isoformat(),
                     }
                 )
                 yield f"data: {ping}\n\n"

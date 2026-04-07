@@ -11,9 +11,11 @@
     "test:backend": "uv run --project backend pytest",
     "test:frontend": "pnpm --dir frontend tsc --noEmit",
     "test:e2e": "pnpm --dir frontend test:e2e",
-    "lint": "pnpm --dir frontend lint && uv run --project backend ruff check backend/mountrr/"
+    "lint": "pnpm --dir frontend lint && uv run --project backend ruff check backend/mountrr/",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "concurrently": "^9.0.0"
+    "concurrently": "^9.0.0",
+    "husky": "^9.1.7"
   }
 }

@@ -1,6 +1,5 @@
 """Tests for mountrr.classifier"""
 
-import pytest
 from mountrr.classifier import classify_symlink, get_mount_path_for_source
 
 RD_PATTERNS = ["decypharr", "realdebrid", "zurg", "rd"]

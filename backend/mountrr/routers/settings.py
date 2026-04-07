@@ -6,7 +6,6 @@ import logging
 from fastapi import APIRouter
 
 from mountrr import database as db
-from mountrr.config import coerce_setting
 from mountrr.models import SettingsResponse, SettingsUpdateRequest
 
 router = APIRouter(tags=["settings"])
