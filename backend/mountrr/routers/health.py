@@ -1,6 +1,7 @@
 from fastapi import APIRouter
-from mountrr.models import HealthResponse
+
 from mountrr import __version__
+from mountrr.models import HealthResponse
 
 router = APIRouter(tags=["health"])
 

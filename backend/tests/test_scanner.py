@@ -1,9 +1,8 @@
 """Tests for scanner helper functions."""
 
 import os
-import pytest
-from mountrr.scanner import _collect_symlinks, _evaluate_symlink
 
+from mountrr.scanner import _collect_symlinks, _evaluate_symlink
 
 RD_PATTERNS = ["realdebrid", "decypharr", "zurg", "rd"]
 NZB_PATTERNS = ["nzbdav", "nzb", "usenet"]

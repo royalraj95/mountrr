@@ -22,8 +22,6 @@ import asyncio
 import json
 import os
 import shutil
-import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 # Resolve dev root before importing mountrr (config reads env at import time)

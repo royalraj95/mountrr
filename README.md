@@ -132,6 +132,7 @@ pnpm seed:reset
 ```
 
 All dev state lives in `./dev-data/` (gitignored, persists across reboots).
+After `pnpm install`, Husky pre-commit hooks are installed automatically and run backend Ruff checks on each commit.
 
 ### Script reference
 

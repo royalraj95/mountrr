@@ -18,7 +18,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from httpx import ASGITransport, AsyncClient
 
-
 # ---------------------------------------------------------------------------
 # Filesystem + DB setup
 # ---------------------------------------------------------------------------
