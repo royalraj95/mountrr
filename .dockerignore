@@ -1,0 +1,34 @@
+# Python
+**/__pycache__
+**/*.py[cod]
+**/.venv
+**/venv
+**/.pytest_cache
+**/*.egg-info
+**/dist
+**/build
+
+# Node
+**/node_modules
+frontend/.vite
+
+# Git
+.git
+.gitignore
+
+# Dev data
+data/
+**/*.db
+**/*.db-wal
+**/*.db-shm
+
+# Docs (not needed in image)
+docs/
+
+# CI
+.github/
+
+# Misc
+.DS_Store
+*.md
+!README.md

@@ -1,0 +1,33 @@
+services:
+  mountrr:
+    build: .
+    # or use pre-built image:
+    # image: ghcr.io/YOUR_GITHUB_USER/mountrr:latest
+    container_name: mountrr
+    restart: unless-stopped
+    ports:
+      - "8484:8484"
+    environment:
+      - TZ=America/Chicago
+      - PUID=1000
+      - PGID=1000
+      # Scan settings (seeded to DB on first boot — change via UI after that)
+      - SCAN_INTERVAL=720
+      - DRY_RUN=false
+      - LOG_LEVEL=INFO
+      # Arr integration — v1.1 (optional)
+      # - RADARR_URL=http://radarr:7878
+      # - RADARR_API_KEY=
+      # - SONARR_URL=http://sonarr:8989
+      # - SONARR_API_KEY=
+    volumes:
+      - ./data:/app/data
+      # Adjust host paths to match your setup:
+      - /mnt/user/data/media:/media
+      - /mnt/user/rclone-cache/decypharr/realdebrid/__all__:/mnt/rd
+      - /mnt/user/rclone-cache/nzbdav:/mnt/nzb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8484/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

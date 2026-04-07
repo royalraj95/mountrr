@@ -1,0 +1,15 @@
+{
+  "name": "mountrr",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c magenta,cyan \"uv run --project backend uvicorn mountrr.main:app --reload --port 8484\" \"pnpm --dir frontend dev\"",
+    "dev:seed": "pnpm seed && concurrently -n backend,frontend -c magenta,cyan \"DB_PATH=/tmp/mountrr-dev/data/symlinks.db uv run --project backend uvicorn mountrr.main:app --reload --port 8484\" \"pnpm --dir frontend dev --open\"",
+    "seed": "uv run --project backend python backend/scripts/seed_dev_data.py",
+    "build": "pnpm --dir frontend build",
+    "test": "pnpm --dir frontend tsc --noEmit && uv run --project backend pytest",
+    "lint": "pnpm --dir frontend lint && uv run --project backend ruff check backend/mountrr/"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
