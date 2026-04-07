@@ -3,10 +3,14 @@
   "private": true,
   "scripts": {
     "dev": "concurrently -n backend,frontend -c magenta,cyan \"uv run --project backend uvicorn mountrr.main:app --reload --port 8484\" \"pnpm --dir frontend dev\"",
-    "dev:seed": "pnpm seed && concurrently -n backend,frontend -c magenta,cyan \"DB_PATH=/tmp/mountrr-dev/data/symlinks.db uv run --project backend uvicorn mountrr.main:app --reload --port 8484\" \"pnpm --dir frontend dev --open\"",
+    "dev:seed": "pnpm seed && concurrently -n backend,frontend -c magenta,cyan \"DB_PATH=./dev-data/data/symlinks.db uv run --project backend uvicorn mountrr.main:app --reload --port 8484\" \"pnpm --dir frontend dev --open\"",
     "seed": "uv run --project backend python backend/scripts/seed_dev_data.py",
+    "seed:reset": "rm -rf dev-data && pnpm seed",
     "build": "pnpm --dir frontend build",
-    "test": "pnpm --dir frontend tsc --noEmit && uv run --project backend pytest",
+    "test": "pnpm test:backend && pnpm test:frontend",
+    "test:backend": "uv run --project backend pytest",
+    "test:frontend": "pnpm --dir frontend tsc --noEmit",
+    "test:e2e": "pnpm --dir frontend test:e2e",
     "lint": "pnpm --dir frontend lint && uv run --project backend ruff check backend/mountrr/"
   },
   "devDependencies": {

@@ -115,19 +115,36 @@ All settings can be changed from the UI after first boot without restarting.
 
 See [CLAUDE.md](./CLAUDE.md) for architecture, conventions, and "what not to do".
 See [docs/architecture.md](./docs/architecture.md) for system design.
-See [docs/deployment.md](./docs/deployment.md) for Unraid and reverse-proxy recipes.
 
 ```bash
-# Backend
-cd backend && uv sync
-uv run uvicorn mountrr.main:app --reload --port 8484
+# One-time setup
+pnpm install
+cd backend && uv sync && cd ..
 
-# Frontend
-cd frontend && pnpm install && pnpm dev
+# Start the full stack with seeded data (opens browser automatically)
+pnpm dev:seed
 
-# Tests
-cd backend && uv run pytest
+# Start without re-seeding (preserves existing dev-data)
+pnpm dev
+
+# Wipe and re-seed dev data without starting servers
+pnpm seed:reset
 ```
+
+All dev state lives in `./dev-data/` (gitignored, persists across reboots).
+
+### Script reference
+
+| Command | What it does |
+|---|---|
+| `pnpm dev` | Start backend (:8484) + frontend (:5173) |
+| `pnpm dev:seed` | Seed dev data, then start full stack and open browser |
+| `pnpm seed` | Rebuild dev-data only (no server start) |
+| `pnpm seed:reset` | Wipe `./dev-data/` and rebuild |
+| `pnpm test` | TypeScript check + pytest |
+| `pnpm test:e2e` | Playwright frontend tests (requires live stack) |
+| `pnpm build` | Production frontend build |
+| `pnpm lint` | ESLint + ruff |
 
 ---
 

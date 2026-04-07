@@ -27,7 +27,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 # Resolve dev root before importing mountrr (config reads env at import time)
-DEV_ROOT = Path(os.environ.get("MOUNTRR_DEV_ROOT", "/tmp/mountrr-dev"))
+DEV_ROOT = Path(
+    os.environ.get(
+        "MOUNTRR_DEV_ROOT",
+        Path(__file__).resolve().parents[2] / "dev-data",
+    )
+)
 DB_PATH = DEV_ROOT / "data" / "symlinks.db"
 MEDIA_ROOT = DEV_ROOT / "media"
 RD_MOUNT = DEV_ROOT / "mnt" / "rd"
@@ -144,7 +149,7 @@ def build_filesystem() -> dict:
 async def seed_database(paths: dict) -> None:
     """Initialize DB, seed config, run a full scan, and add history rows."""
     from mountrr.config import get_seed_config
-    from mountrr.database import execute, init_db, seed_config
+    from mountrr.database import close_db, execute, init_db, seed_config
     from mountrr.scanner import run_scan
 
     print("Initializing database ...")
@@ -178,6 +183,8 @@ async def seed_database(paths: dict) -> None:
         )
     print(f"  Added {len(old_entries)} historical deletion rows")
 
+    await close_db()
+
 
 def print_summary() -> None:
     healthy = len(RD_MOVIES) + len(NZB_SHOWS)
@@ -197,12 +204,13 @@ def print_summary() -> None:
     print(f"  Broken:         {broken} ({len(RD_BROKEN_MOVIES)} rd + {len(NZB_BROKEN_SHOWS)} nzb)")
     print(f"  Other:          {other}")
     print()
+    print("Dev state lives in ./dev-data/ (gitignored, persists across reboots)")
+    print()
     print("Start the full dev stack from the project root:")
     print()
-    print("  pnpm dev:seed     ← seeds + starts backend & frontend")
+    print("  pnpm dev:seed     ← (re-)seeds + starts backend & frontend + opens browser")
     print("  pnpm dev          ← starts without re-seeding")
-    print()
-    print("Then visit http://localhost:5173  (Vite dev server)")
+    print("  pnpm seed:reset   ← wipes dev-data and re-seeds (no server start)")
     print("=" * 60)
 
 

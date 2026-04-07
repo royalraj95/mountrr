@@ -45,3 +45,6 @@ htmlcov/
 
 # Local dev data
 data/
+
+# Seeded local dev state (created by `pnpm seed`)
+dev-data/
